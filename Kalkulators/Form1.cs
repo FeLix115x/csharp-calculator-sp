@@ -69,7 +69,7 @@ namespace Kalkulators
             tekstaLaukums.Text = result.ToString();
 
             if (logOperations)
-                logFileWrite("sqrt(" + operand1 + ") = " + result.ToString());
+                logFileWrite("sqrt(" + input + ") = " + result.ToString());
         }
 
         private void pakapePoga_Click(object sender, EventArgs e)
@@ -82,7 +82,7 @@ namespace Kalkulators
             tekstaLaukums.Text = result.ToString();
 
             if (logOperations)
-                logFileWrite(operand1 + "^2 = " + result.ToString());
+                logFileWrite(input + "^2 = " + result.ToString());
         }
 
         private void vienadsPoga_Click(object sender, EventArgs e)
@@ -237,8 +237,12 @@ namespace Kalkulators
 
         private void logCheckBox_Checked(object sender, EventArgs e)
         {
+            Console.WriteLine(this.checkBoxLog.Checked + " " + this.logOperations);
 
-            logOperations = true;
+            if (this.checkBoxLog.Checked)
+                this.logOperations = true;
+            else
+                this.logOperations = false;
         }
 
 
