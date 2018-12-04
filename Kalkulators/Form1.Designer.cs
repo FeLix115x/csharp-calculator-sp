@@ -28,6 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.septiniPoga = new System.Windows.Forms.Button();
             this.astoniPoga = new System.Windows.Forms.Button();
             this.deviniPoga = new System.Windows.Forms.Button();
@@ -55,8 +64,81 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.checkBoxLog = new System.Windows.Forms.CheckBox();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.themeToolStripMenuItem,
+            this.sizeToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(707, 24);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "File";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem,
+            this.clearToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewLogFile_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.logFileClear_Click);
+            // 
+            // themeToolStripMenuItem
+            // 
+            this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.darkToolStripMenuItem,
+            this.lightToolStripMenuItem});
+            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.themeToolStripMenuItem.Text = "Theme";
+            // 
+            // darkToolStripMenuItem
+            // 
+            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.darkToolStripMenuItem.Text = "Dark";
+            this.darkToolStripMenuItem.Click += new System.EventHandler(this.setDarkTheme_Click);
+            // 
+            // lightToolStripMenuItem
+            // 
+            this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lightToolStripMenuItem.Text = "Light";
+            this.lightToolStripMenuItem.Click += new System.EventHandler(this.setLightTheme_Click);
+            // 
+            // sizeToolStripMenuItem
+            // 
+            this.sizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.minimizeToolStripMenuItem});
+            this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.sizeToolStripMenuItem.Text = "Size";
+            // 
+            // minimizeToolStripMenuItem
+            // 
+            this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
+            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.minimizeToolStripMenuItem.Text = "Resize";
+            this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.windowResize_Click);
             // 
             // septiniPoga
             // 
@@ -66,7 +148,6 @@
             this.septiniPoga.Size = new System.Drawing.Size(57, 54);
             this.septiniPoga.TabIndex = 0;
             this.septiniPoga.Text = "7";
-            this.septiniPoga.UseVisualStyleBackColor = true;
             this.septiniPoga.Click += new System.EventHandler(this.septiniPoga_Click);
             // 
             // astoniPoga
@@ -77,7 +158,6 @@
             this.astoniPoga.Size = new System.Drawing.Size(57, 54);
             this.astoniPoga.TabIndex = 1;
             this.astoniPoga.Text = "8";
-            this.astoniPoga.UseVisualStyleBackColor = true;
             this.astoniPoga.Click += new System.EventHandler(this.astoniPoga_Click);
             // 
             // deviniPoga
@@ -88,7 +168,6 @@
             this.deviniPoga.Size = new System.Drawing.Size(57, 54);
             this.deviniPoga.TabIndex = 2;
             this.deviniPoga.Text = "9";
-            this.deviniPoga.UseVisualStyleBackColor = true;
             this.deviniPoga.Click += new System.EventHandler(this.deviniPoga_Click);
             // 
             // cetriPoga
@@ -99,7 +178,6 @@
             this.cetriPoga.Size = new System.Drawing.Size(57, 54);
             this.cetriPoga.TabIndex = 3;
             this.cetriPoga.Text = "4";
-            this.cetriPoga.UseVisualStyleBackColor = true;
             this.cetriPoga.Click += new System.EventHandler(this.cetriPoga_Click);
             // 
             // pieciPoga
@@ -110,7 +188,6 @@
             this.pieciPoga.Size = new System.Drawing.Size(57, 54);
             this.pieciPoga.TabIndex = 4;
             this.pieciPoga.Text = "5";
-            this.pieciPoga.UseVisualStyleBackColor = true;
             this.pieciPoga.Click += new System.EventHandler(this.pieciPoga_Click);
             // 
             // sesiPoga
@@ -121,7 +198,6 @@
             this.sesiPoga.Size = new System.Drawing.Size(57, 54);
             this.sesiPoga.TabIndex = 5;
             this.sesiPoga.Text = "6";
-            this.sesiPoga.UseVisualStyleBackColor = true;
             this.sesiPoga.Click += new System.EventHandler(this.sesiPoga_Click);
             // 
             // viensPoga
@@ -132,7 +208,6 @@
             this.viensPoga.Size = new System.Drawing.Size(57, 54);
             this.viensPoga.TabIndex = 6;
             this.viensPoga.Text = "1";
-            this.viensPoga.UseVisualStyleBackColor = true;
             this.viensPoga.Click += new System.EventHandler(this.viensPoga_Click);
             // 
             // diviPoga
@@ -143,7 +218,6 @@
             this.diviPoga.Size = new System.Drawing.Size(57, 54);
             this.diviPoga.TabIndex = 7;
             this.diviPoga.Text = "2";
-            this.diviPoga.UseVisualStyleBackColor = true;
             this.diviPoga.Click += new System.EventHandler(this.diviPoga_Click);
             // 
             // trisPoga
@@ -154,7 +228,6 @@
             this.trisPoga.Size = new System.Drawing.Size(57, 54);
             this.trisPoga.TabIndex = 8;
             this.trisPoga.Text = "3";
-            this.trisPoga.UseVisualStyleBackColor = true;
             this.trisPoga.Click += new System.EventHandler(this.trisPoga_Click);
             // 
             // vienadsPoga
@@ -165,7 +238,6 @@
             this.vienadsPoga.Size = new System.Drawing.Size(333, 54);
             this.vienadsPoga.TabIndex = 9;
             this.vienadsPoga.Text = "=";
-            this.vienadsPoga.UseVisualStyleBackColor = true;
             this.vienadsPoga.Click += new System.EventHandler(this.vienadsPoga_Click);
             // 
             // dalitPoga
@@ -176,7 +248,6 @@
             this.dalitPoga.Size = new System.Drawing.Size(57, 54);
             this.dalitPoga.TabIndex = 10;
             this.dalitPoga.Text = "/";
-            this.dalitPoga.UseVisualStyleBackColor = true;
             this.dalitPoga.Click += new System.EventHandler(this.dalitPoga_Click);
             // 
             // reizinatPoga
@@ -187,7 +258,6 @@
             this.reizinatPoga.Size = new System.Drawing.Size(57, 54);
             this.reizinatPoga.TabIndex = 11;
             this.reizinatPoga.Text = "*";
-            this.reizinatPoga.UseVisualStyleBackColor = true;
             this.reizinatPoga.Click += new System.EventHandler(this.reizinatPoga_Click);
             // 
             // plusPoga
@@ -198,7 +268,6 @@
             this.plusPoga.Size = new System.Drawing.Size(57, 54);
             this.plusPoga.TabIndex = 12;
             this.plusPoga.Text = "+";
-            this.plusPoga.UseVisualStyleBackColor = true;
             this.plusPoga.Click += new System.EventHandler(this.plusPoga_Click);
             // 
             // tekstaLaukums
@@ -218,7 +287,6 @@
             this.minusPoga.Size = new System.Drawing.Size(57, 54);
             this.minusPoga.TabIndex = 17;
             this.minusPoga.Text = "-";
-            this.minusPoga.UseVisualStyleBackColor = true;
             this.minusPoga.Click += new System.EventHandler(this.minusPoga_Click);
             // 
             // CPoga
@@ -229,7 +297,6 @@
             this.CPoga.Size = new System.Drawing.Size(57, 54);
             this.CPoga.TabIndex = 16;
             this.CPoga.Text = "C";
-            this.CPoga.UseVisualStyleBackColor = true;
             this.CPoga.Click += new System.EventHandler(this.CPoga_Click);
             // 
             // punktaPoga
@@ -240,7 +307,6 @@
             this.punktaPoga.Size = new System.Drawing.Size(57, 54);
             this.punktaPoga.TabIndex = 15;
             this.punktaPoga.Text = ".";
-            this.punktaPoga.UseVisualStyleBackColor = true;
             this.punktaPoga.Click += new System.EventHandler(this.punktaPoga_Click);
             // 
             // nullesPoga
@@ -251,7 +317,6 @@
             this.nullesPoga.Size = new System.Drawing.Size(57, 54);
             this.nullesPoga.TabIndex = 14;
             this.nullesPoga.Text = "0";
-            this.nullesPoga.UseVisualStyleBackColor = true;
             this.nullesPoga.Click += new System.EventHandler(this.nullesPoga_Click);
             // 
             // textBox1
@@ -262,17 +327,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(131, 50);
             this.textBox1.TabIndex = 18;
-
-            //
-            // log faila poga
-            //
-            this.checkBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxLog.Location = new System.Drawing.Point(435, 36);
-            this.checkBoxLog.Name = "checkBoxLog";
-            this.checkBoxLog.Text = "Write to Log";
-            this.checkBoxLog.Checked = false;
-            this.checkBoxLog.CheckedChanged += new System.EventHandler(this.logCheckBox_Checked);
-            
             // 
             // saknesPoga
             // 
@@ -302,7 +356,6 @@
             this.USD.Size = new System.Drawing.Size(57, 54);
             this.USD.TabIndex = 19;
             this.USD.Text = "$";
-            this.USD.UseVisualStyleBackColor = true;
             this.USD.Click += new System.EventHandler(this.USD_Click);
             // 
             // EUR
@@ -313,7 +366,6 @@
             this.EUR.Size = new System.Drawing.Size(57, 54);
             this.EUR.TabIndex = 20;
             this.EUR.Text = "€";
-            this.EUR.UseVisualStyleBackColor = true;
             this.EUR.Click += new System.EventHandler(this.EUR_Click);
             // 
             // LV
@@ -324,7 +376,6 @@
             this.LV.Size = new System.Drawing.Size(57, 54);
             this.LV.TabIndex = 21;
             this.LV.Text = "Lati";
-            this.LV.UseVisualStyleBackColor = true;
             this.LV.Click += new System.EventHandler(this.LV_Click);
             // 
             // textBox2
@@ -345,11 +396,22 @@
             this.textBox3.Size = new System.Drawing.Size(131, 50);
             this.textBox3.TabIndex = 23;
             // 
+            // checkBoxLog
+            // 
+            this.checkBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxLog.Location = new System.Drawing.Point(435, 36);
+            this.checkBoxLog.Name = "checkBoxLog";
+            this.checkBoxLog.Size = new System.Drawing.Size(104, 24);
+            this.checkBoxLog.TabIndex = 24;
+            this.checkBoxLog.Text = "Write to Log";
+            this.checkBoxLog.CheckedChanged += new System.EventHandler(this.logCheckBox_Checked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 512);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.LV);
@@ -377,16 +439,19 @@
             this.Controls.Add(this.pakapesPoga);
             this.Controls.Add(this.saknesPoga);
             this.Controls.Add(this.checkBoxLog);
-
             this.Name = "Form1";
             this.Text = "Kalkulātors";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip;
 
         private System.Windows.Forms.Button septiniPoga;
         private System.Windows.Forms.Button astoniPoga;
@@ -415,6 +480,14 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.CheckBox checkBoxLog;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
     }
 }
 

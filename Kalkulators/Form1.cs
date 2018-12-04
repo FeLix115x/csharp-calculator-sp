@@ -288,5 +288,51 @@ namespace Kalkulators
         {
 
         }
+
+        /**
+         * Opens the log file in notepad
+         */
+        private void viewLogFile_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("notepad.exe", logPath);
+        }
+
+        /**
+         * Reinitializes the log file
+         */
+        private void logFileClear_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter sw = File.CreateText(logPath))
+            {
+                sw.Write("");
+            }
+        }
+
+        /**
+         * Sets the theme to dark 
+         */
+        private void setDarkTheme_Click(object sender, EventArgs e)
+        {
+            BackColor = System.Drawing.Color.DarkBlue;
+            ForeColor = System.Drawing.Color.FloralWhite;
+        }
+
+        /**
+         * Resets the theme to default (light)
+         */
+        private void setLightTheme_Click(object sender, EventArgs e)
+        {
+            BackColor = Control.DefaultBackColor;
+            ForeColor = Control.DefaultForeColor;
+        }
+
+        /**
+         * Minimizes or maximizes the calculator
+         * TODO finish the function
+         */
+        private void windowResize_Click(object sender, EventArgs e)
+        {
+            this.Size = new Size(300, this.Size.Height);
+        }
     }
 }
