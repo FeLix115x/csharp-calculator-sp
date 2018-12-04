@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace Kalkulators
 {
+
     public partial class Form1 : Form
     {
         string input = string.Empty; //ievada mainigais ar string tipu
@@ -17,11 +19,24 @@ namespace Kalkulators
         char operation;
         double result = 0.0;
 
+        bool logOperations = false;
+
+        private const string logPath = @"C:\Users\Felix\Downloads\Kalkulators\calc_log.txt";
+
         public Form1()
         {
             InitializeComponent();
         }
 
+
+        private void logFileWrite(string operation)
+        { 
+
+            using (StreamWriter sw = File.AppendText(logPath))
+            {
+                sw.WriteLine(operation);
+            }
+        }
 
         private void plusPoga_Click(object sender, EventArgs e)
         {
@@ -52,6 +67,9 @@ namespace Kalkulators
             result = Math.Sqrt(num);
             operand1 = result.ToString();
             tekstaLaukums.Text = result.ToString();
+
+            if (logOperations)
+                logFileWrite("sqrt(" + operand1 + ") = " + result.ToString());
         }
 
         private void pakapePoga_Click(object sender, EventArgs e)
@@ -62,6 +80,9 @@ namespace Kalkulators
             result = Math.Pow(num, 2);
             operand1 = result.ToString();
             tekstaLaukums.Text = result.ToString();
+
+            if (logOperations)
+                logFileWrite(operand1 + "^2 = " + result.ToString());
         }
 
         private void vienadsPoga_Click(object sender, EventArgs e)
@@ -114,6 +135,8 @@ namespace Kalkulators
                     }
                 }
             }
+            if (logOperations)
+                logFileWrite(operand1 + " " + operation + " " + operand2 + " = " + result.ToString());
         }
 
         private void trisPoga_Click(object sender, EventArgs e)
@@ -197,7 +220,7 @@ namespace Kalkulators
         private void punktaPoga_Click(object sender, EventArgs e)
         {
             this.tekstaLaukums.Text = "";
-            input += ".";
+            input += ",";
             this.tekstaLaukums.Text += input;
         }
 
@@ -212,6 +235,13 @@ namespace Kalkulators
             this.operand2 = string.Empty;
         }
 
+        private void logCheckBox_Checked(object sender, EventArgs e)
+        {
+
+            logOperations = true;
+        }
+
+
         private void EUR_Click(object sender, EventArgs e)
         { 
             const double usd = 1.14, lvl = 0.71; // coef
@@ -220,6 +250,9 @@ namespace Kalkulators
             double.TryParse(this.textBox1.Text, out eur);
             this.textBox2.Text = (eur * usd).ToString();
             this.textBox3.Text = (eur * lvl).ToString();
+
+            if(logOperations)
+                logFileWrite(eur + " EUR = " + usd * eur + " USD or " + lvl * eur + " LVL");
         }
 
         private void USD_Click(object sender, EventArgs e)
@@ -230,6 +263,8 @@ namespace Kalkulators
             double.TryParse(this.textBox2.Text, out usd);
             this.textBox1.Text = (usd * eur).ToString();
             this.textBox3.Text = (usd * lvl).ToString();
+            if(logOperations)
+                logFileWrite(usd + " USD = " + eur * usd + " EUR or " + lvl * usd + " LVL");
         }
 
         private void LV_Click(object sender, EventArgs e)
@@ -240,6 +275,9 @@ namespace Kalkulators
             double.TryParse(this.textBox3.Text, out lvl);
             this.textBox1.Text = (lvl * eur).ToString();
             this.textBox2.Text = (lvl * usd).ToString();
+
+            if (logOperations)
+                logFileWrite(lvl + " LVL = " + usd * lvl + " USD or " + eur * lvl + " EUR");
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -54,7 +54,9 @@
             this.LV = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.checkBoxLog = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
+
             // 
             // septiniPoga
             // 
@@ -250,21 +252,32 @@
             this.nullesPoga.TabIndex = 14;
             this.nullesPoga.Text = "0";
             this.nullesPoga.UseVisualStyleBackColor = true;
-            this.nullesPoga.Click += new System.EventHandler(this.saknePoga_Click);
+            this.nullesPoga.Click += new System.EventHandler(this.nullesPoga_Click);
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(534, 109);
+            this.textBox1.Location = new System.Drawing.Point(534, 186);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(131, 50);
             this.textBox1.TabIndex = 18;
+
+            //
+            // log faila poga
+            //
+            this.checkBoxLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxLog.Location = new System.Drawing.Point(435, 36);
+            this.checkBoxLog.Name = "checkBoxLog";
+            this.checkBoxLog.Text = "Write to Log";
+            this.checkBoxLog.Checked = false;
+            this.checkBoxLog.CheckedChanged += new System.EventHandler(this.logCheckBox_Checked);
+            
             // 
             // saknesPoga
             // 
             this.saknesPoga.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saknesPoga.Location = new System.Drawing.Point(554, 36);
+            this.saknesPoga.Location = new System.Drawing.Point(554, 109);
             this.saknesPoga.Name = "saknesPoga";
             this.saknesPoga.Size = new System.Drawing.Size(111, 50);
             this.saknesPoga.TabIndex = 0;
@@ -274,7 +287,7 @@
             // pakapesPoga
             // 
             this.pakapesPoga.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pakapesPoga.Location = new System.Drawing.Point(435, 36);
+            this.pakapesPoga.Location = new System.Drawing.Point(435, 109);
             this.pakapesPoga.Name = "pakapesPoga";
             this.pakapesPoga.Size = new System.Drawing.Size(111, 50);
             this.pakapesPoga.TabIndex = 0;
@@ -284,7 +297,7 @@
             // USD
             // 
             this.USD.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.USD.Location = new System.Drawing.Point(435, 186);
+            this.USD.Location = new System.Drawing.Point(435, 259);
             this.USD.Name = "USD";
             this.USD.Size = new System.Drawing.Size(57, 54);
             this.USD.TabIndex = 19;
@@ -295,7 +308,7 @@
             // EUR
             // 
             this.EUR.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EUR.Location = new System.Drawing.Point(435, 109);
+            this.EUR.Location = new System.Drawing.Point(435, 182);
             this.EUR.Name = "EUR";
             this.EUR.Size = new System.Drawing.Size(57, 54);
             this.EUR.TabIndex = 20;
@@ -306,7 +319,7 @@
             // LV
             // 
             this.LV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LV.Location = new System.Drawing.Point(435, 263);
+            this.LV.Location = new System.Drawing.Point(435, 337);
             this.LV.Name = "LV";
             this.LV.Size = new System.Drawing.Size(57, 54);
             this.LV.TabIndex = 21;
@@ -317,7 +330,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(534, 186);
+            this.textBox2.Location = new System.Drawing.Point(534, 263);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(131, 50);
@@ -326,7 +339,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(534, 263);
+            this.textBox3.Location = new System.Drawing.Point(534, 341);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(131, 50);
@@ -363,6 +376,8 @@
             this.Controls.Add(this.septiniPoga);
             this.Controls.Add(this.pakapesPoga);
             this.Controls.Add(this.saknesPoga);
+            this.Controls.Add(this.checkBoxLog);
+
             this.Name = "Form1";
             this.Text = "Kalkulātors";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -399,6 +414,7 @@
         private System.Windows.Forms.Button LV;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox checkBoxLog;
     }
 }
 
