@@ -20,12 +20,15 @@ namespace Kalkulators
         double result = 0.0;
 
         bool logOperations = false;
-
         private const string logPath = @"C:\Users\Felix\Downloads\Kalkulators\calc_log.txt";
+
+        bool minimized = false;
+        Size defaultSize; 
 
         public Form1()
         {
             InitializeComponent();
+            defaultSize = this.Size;
         }
 
 
@@ -328,11 +331,20 @@ namespace Kalkulators
 
         /**
          * Minimizes or maximizes the calculator
-         * TODO finish the function
+         * Minimzed mode contains only the 4 basic operations 
          */
         private void windowResize_Click(object sender, EventArgs e)
         {
-            this.Size = new Size(300, this.Size.Height);
+            if (!minimized)
+            {
+                this.Size = new Size(410, this.Size.Height);
+                minimized = true;
+            } else
+            {
+                this.Size = defaultSize;
+                minimized = false;
+            }
+                
         }
     }
 }
