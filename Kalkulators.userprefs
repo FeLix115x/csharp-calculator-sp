@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{06544B8F-7BDA-4B38-B811-3603D5683CEC}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Kalkulators/Program.cs">
+    <Files>
+      <File FileName="Kalkulators/Program.cs" Line="21" Column="29" />
+      <File FileName="Kalkulators/Form1.cs" Line="1" Column="1" />
+      <File FileName="Kalkulators/ExpressionParser.cs" Line="79" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Kalkulators PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

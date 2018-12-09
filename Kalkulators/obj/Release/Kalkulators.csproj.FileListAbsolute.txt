@@ -1,0 +1,8 @@
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/bin/Release/Kalkulators.exe
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/bin/Release/Kalkulators.pdb
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.Form1.resources
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.Properties.Resources.resources
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.csproj.GenerateResource.Cache
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.csproj.CoreCompileInputs.cache
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.exe
+/home/felix115x/Documents/workspace/csharp_programs/csharp-calculator-sp/Kalkulators/obj/Release/Kalkulators.pdb

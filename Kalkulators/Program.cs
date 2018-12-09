@@ -13,9 +13,16 @@ namespace Kalkulators
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            */
+
+            string expr = "4 * (-21 + 4)";
+
+            ExpressionParser e = new ExpressionParser();
+            Console.WriteLine(e.ExecuteStringEquation(expr));
+
         }
     }
 }
