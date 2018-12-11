@@ -12,11 +12,17 @@ namespace Calculator
         }
 
         /**
+         * First converts the equation to postfix by calling the function ToPostfix()
+         * Then validates parentheses
+         * then computes the result
+         * 
          * @param inputEquation
          */
         public double ExecuteStringEquation(string inputEquation)
         {
-            List<string> expr = ToPosfix(inputEquation);
+            List<string> expr = ToPostfix(inputEquation);
+            if (!ValidateParentheses(expr)) throw new ParenthesesException();
+
             Stack<double> s = new Stack<double>();
             double a, b, input;
 
@@ -59,6 +65,7 @@ namespace Calculator
                 }
             }
 
+           
             return s.Pop();
         }
 
@@ -68,7 +75,7 @@ namespace Calculator
          * @param expression
          * @return posfix expression as a List object of Strings
          */
-        private List<string> ToPosfix(string expression)
+        private List<string> ToPostfix(string expression)
         {
             List<string> posfix = new List<string>();
             Stack<char> opstack = new Stack<char>();
@@ -122,6 +129,28 @@ namespace Calculator
                 posfix.Add(char.ToString(opstack.Pop()));
 
             return posfix;
+        }
+
+        private bool ValidateParentheses(List<string> expr)
+        {
+            Stack<string> s = new Stack<string>();
+            foreach(string substring in expr)
+            {
+                if (substring.Equals("("))
+                {
+                    s.Push(substring);
+                } else if(substring.Equals(")"))
+                {
+                    if (StackIsEmpty(s))
+                        return false;
+                    if (s.Pop() != "(")
+                        return false;
+                }
+            }
+            if (StackIsEmpty(s))
+                return true;
+
+            return false;
         }
 
         /**

@@ -12,3 +12,17 @@
 \\irbe\s6_kamise_f\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\Calculator.csproj.GenerateResource.Cache
 \\irbe\s6_kamise_f\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\Calculator.exe
 \\irbe\s6_kamise_f\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\Calculator.pdb
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\bin\Debug\Calculator.exe.config
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\bin\Debug\Calculator.exe
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\bin\Debug\Calculator.pdb
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\MainWindow.g.cs
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\App.g.cs
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator_MarkupCompile.cache
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator_MarkupCompile.lref
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\MainWindow.baml
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.g.resources
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.Properties.Resources.resources
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.csproj.GenerateResource.Cache
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.exe
+\\irbe\s6_kamise_f\Documents\Visual Studio 2017\Projects\csharp-calculator-sp\Calculator\obj\Debug\Calculator.pdb

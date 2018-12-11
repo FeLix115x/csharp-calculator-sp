@@ -47,7 +47,24 @@ namespace Calculator
          */
         private void equals_Click(object sender, RoutedEventArgs e)
         {
-            mainTextBox.Text = ep.ExecuteStringEquation(inputText).ToString();
+            try
+            {
+                mainTextBox.Text = ep.ExecuteStringEquation(inputText).ToString();
+            } catch (ArithmeticException ex)
+            {
+                MessageBox.Show("Cannot divide by 0 (zero)", "Division by zero",MessageBoxButton.OK, MessageBoxImage.Warning);
+                clrText();
+            } catch (System.InvalidOperationException ex)
+            {
+                MessageBox.Show("Please input a valid operation", "Invalid expression", MessageBoxButton.OK, MessageBoxImage.Warning);
+                clrText();
+            }
+            catch (ParenthesesException ex)
+            {
+                MessageBox.Show("Parenthese do not match", "Invalid expression", MessageBoxButton.OK, MessageBoxImage.Warning);
+                clrText();
+            }
+
         }
 
         private void subtract_Click(object sender, RoutedEventArgs e)
@@ -156,8 +173,7 @@ namespace Calculator
 
         private void allClr_Click(object sender, RoutedEventArgs e)
         {
-            mainTextBox.Text = "";
-            inputText = "";
+            clrText();
         }
 
         private void sqroot_Click(object sender, RoutedEventArgs e)
@@ -166,15 +182,21 @@ namespace Calculator
             inputText += "^(1/2)";
 
         }
-
+        
+        /**
+         * Clears one symbol (backspace)
+         */
         private void clr_Click(object sender, RoutedEventArgs e)
         {
-            int len = mainTextBox.Text.Length;
-            StringBuilder sb = new StringBuilder(mainTextBox.Text);
-            sb[len - 1] = ' ';
-            mainTextBox.Text = sb.ToString().Trim();
+            if (mainTextBox.Text.Length != 0)
+            {
+                int len = mainTextBox.Text.Length;
+                StringBuilder sb = new StringBuilder(mainTextBox.Text);
+                sb[len - 1] = ' ';
+                mainTextBox.Text = sb.ToString().Trim();
 
-            inputText = mainTextBox.Text;
+                inputText = mainTextBox.Text;
+            }
         }
 
         private void mainTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -182,14 +204,24 @@ namespace Calculator
             
         }
 
+        /**
+         * Plots the function given by y = f(x)
+         */
         private void pltBtn_Click(object sender, RoutedEventArgs e)
         {
+            string[] rangeSplit = rangeInput.Text.Split(':');
 
         }
 
         private void clrPlt_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void clrText()
+        {
+            inputText = "";
+            mainTextBox.Text = inputText;
         }
     }
 }
