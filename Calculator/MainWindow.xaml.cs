@@ -53,16 +53,16 @@ namespace Calculator
             } catch (ArithmeticException ex)
             {
                 MessageBox.Show("Cannot divide by 0 (zero)", "Division by zero",MessageBoxButton.OK, MessageBoxImage.Warning);
-                clrText();
+                ClrText();
             } catch (System.InvalidOperationException ex)
             {
                 MessageBox.Show("Please input a valid operation", "Invalid expression", MessageBoxButton.OK, MessageBoxImage.Warning);
-                clrText();
+                ClrText();
             }
             catch (ParenthesesException ex)
             {
                 MessageBox.Show("Parenthese do not match", "Invalid expression", MessageBoxButton.OK, MessageBoxImage.Warning);
-                clrText();
+                ClrText();
             }
 
         }
@@ -173,7 +173,7 @@ namespace Calculator
 
         private void allClr_Click(object sender, RoutedEventArgs e)
         {
-            clrText();
+            ClrText();
         }
 
         private void sqroot_Click(object sender, RoutedEventArgs e)
@@ -206,22 +206,83 @@ namespace Calculator
 
         /**
          * Plots the function given by y = f(x)
+         * 
+         * TODO FIX
          */
         private void pltBtn_Click(object sender, RoutedEventArgs e)
         {
             string[] rangeSplit = rangeInput.Text.Split(':');
+            double[] range = new double[3];
+            for (int i = 0; i < 3; i++)
+                Double.TryParse(rangeSplit[i], out range[i]);
 
+            List<double> domain = new List<double>();
+
+            double deltaX = canvasGrid.ActualWidth / ((range[2] - range[0]) / range[1]);
+
+            string expr = FunctionPlotter.ReturnExpression(mainTextBox.Text);
+
+            Console.WriteLine(expr);
+            Console.WriteLine(deltaX + " " + canvasGrid.ActualWidth);
+
+            double y;
+            for (double x = 0; x <= canvasGrid.ActualWidth; x += deltaX)
+            {
+                y = canvasGrid.ActualHeight - ep.ExecuteStringEquation(expr.Replace("x", (range[0] + x).ToString()));
+                domain.Add(y);
+            }
+
+            double maxVal = domain.Max();
+            for (double x = 0; x <= canvasGrid.ActualWidth; x += deltaX)
+            {
+                AddPoint(x, (canvasGrid.ActualHeight - ep.ExecuteStringEquation(expr.Replace("x", (range[0] + x).ToString()))) / maxVal);
+            }
         }
 
         private void clrPlt_Click(object sender, RoutedEventArgs e)
         {
-
+            pltCanvas.Children.Clear();
         }
 
-        private void clrText()
+        private void ClrText()
         {
             inputText = "";
             mainTextBox.Text = inputText;
+        }
+
+        /**
+        * Function that encapsulates adding a single point on the canvas. Used for plotting
+        */
+        private void AddPoint(double x, double y)
+        {
+            Point p = new Point(x, y);
+
+            var ellipse = new Ellipse()
+            {
+                Width = 6,
+                Height = 6,
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 2,
+                Fill = new SolidColorBrush(Colors.Black)
+            };
+
+            Canvas.SetLeft(ellipse, p.X - 3);
+            Canvas.SetTop(ellipse, p.Y - 3);
+            pltCanvas.Children.Add(ellipse);
+        }
+
+        private void DrawLine(double x1, double y1, double x2, double y2)
+        {
+            Line line = new Line();
+            line.Stroke = Brushes.Black;
+            line.StrokeThickness = 3;
+
+            line.X1 = x1;
+            line.X2 = x2;
+            line.Y1 = y1;
+            line.Y2 = y2;
+
+            pltCanvas.Children.Add(line);
         }
     }
 }

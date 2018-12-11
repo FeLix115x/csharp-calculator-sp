@@ -38,9 +38,10 @@
             <Button x:Name="pltBtn" Content="Plot" Margin="3,5,166,219" RenderTransformOrigin="-1.03,2.75" Click="pltBtn_Click"/>
             <Button x:Name="clrPlt" Content="Clear" Margin="80,5,0,219" RenderTransformOrigin="-1.03,2.75" Click="clrPlt_Click" HorizontalAlignment="Left" Width="72"/>
             <TextBox x:Name="rangeInput"  Margin="157,5,0,219" RenderTransformOrigin="-1.03,2.75" HorizontalAlignment="Left" Width="84"/>
-            <Canvas x:Name="pltCanvas" Margin="0,53,0,0">
-
-            </Canvas>
+            <Grid x:Name="canvasGrid" Margin="0,53,0,0">
+                <Canvas x:Name="pltCanvas" SnapsToDevicePixels="False"/>
+            </Grid>
+            
         </Grid>
     </Grid>
 
