@@ -23,11 +23,59 @@ namespace Calculator
 
         private string inputText = "";  // this variable stores the equation that will be calculated
 
+        const double margin = 10;
+        double xmin = margin;
+        double xmax;
+        double ymin = margin;
+        double ymax;
+        const double step = 10;
+
         private ExpressionParser ep;
         public MainWindow()
         {
             InitializeComponent();
+
             ep = new ExpressionParser();
+
+            xmax = pltCanvas.ActualWidth - margin;
+            ymax = pltCanvas.ActualHeight - margin;
+
+            // Make the X axis.
+            GeometryGroup xaxis_geom = new GeometryGroup();
+            xaxis_geom.Children.Add(new LineGeometry(
+                new Point(0, ymax), new Point(pltCanvas.Width, ymax)));
+            for (double x = xmin + step;
+                x <= pltCanvas.Width - step; x += step)
+            {
+                xaxis_geom.Children.Add(new LineGeometry(
+                    new Point(x, ymax - margin / 2),
+                    new Point(x, ymax + margin / 2)));
+            }
+
+            Path xaxis_path = new Path();
+            xaxis_path.StrokeThickness = 1;
+            xaxis_path.Stroke = Brushes.Black;
+            xaxis_path.Data = xaxis_geom;
+
+            pltCanvas.Children.Add(xaxis_path);
+
+            // Make the Y ayis.
+            GeometryGroup yaxis_geom = new GeometryGroup();
+            yaxis_geom.Children.Add(new LineGeometry(
+                new Point(xmin, 0), new Point(xmin, pltCanvas.Height)));
+            for (double y = step; y <= pltCanvas.Height - step; y += step)
+            {
+                yaxis_geom.Children.Add(new LineGeometry(
+                    new Point(xmin - margin / 2, y),
+                    new Point(xmin + margin / 2, y)));
+            }
+
+            Path yaxis_path = new Path();
+            yaxis_path.StrokeThickness = 1;
+            yaxis_path.Stroke = Brushes.Black;
+            yaxis_path.Data = yaxis_geom;
+
+            pltCanvas.Children.Add(yaxis_path);
         }
 
         private void zero_Click(object sender, RoutedEventArgs e)
@@ -284,5 +332,8 @@ namespace Calculator
 
             pltCanvas.Children.Add(line);
         }
+
+
+
     }
 }
