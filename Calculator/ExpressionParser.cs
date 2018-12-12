@@ -27,7 +27,9 @@ namespace Calculator
             double a, b, input;
 
             foreach (string op in expr)
+            {
                 Console.WriteLine(op);
+            }
 
             foreach (string str in expr)
             {
@@ -81,6 +83,8 @@ namespace Calculator
             Stack<char> opstack = new Stack<char>();
             int k;
             bool lastOp = false;	// true if last substring was an operator
+
+            Console.WriteLine(expression);
 
             for (int i = 0; i < expression.Length; i++)
             {

@@ -62,6 +62,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FunctionPlotter.cs" />
     <Compile Include="ParentheseException.cs" />
     <Compile Include="ExpressionParser.cs" />

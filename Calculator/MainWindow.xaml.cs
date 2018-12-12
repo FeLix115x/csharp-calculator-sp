@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExtensionMethods;
 
 namespace Calculator
 {
@@ -23,12 +24,7 @@ namespace Calculator
 
         private string inputText = "";  // this variable stores the equation that will be calculated
 
-        const double margin = 10;
-        double xmin = margin;
-        double xmax;
-        double ymin = margin;
-        double ymax;
-        const double step = 10;
+        
 
         private ExpressionParser ep;
         public MainWindow()
@@ -36,46 +32,6 @@ namespace Calculator
             InitializeComponent();
 
             ep = new ExpressionParser();
-
-            xmax = pltCanvas.ActualWidth - margin;
-            ymax = pltCanvas.ActualHeight - margin;
-
-            // Make the X axis.
-            GeometryGroup xaxis_geom = new GeometryGroup();
-            xaxis_geom.Children.Add(new LineGeometry(
-                new Point(0, ymax), new Point(pltCanvas.Width, ymax)));
-            for (double x = xmin + step;
-                x <= pltCanvas.Width - step; x += step)
-            {
-                xaxis_geom.Children.Add(new LineGeometry(
-                    new Point(x, ymax - margin / 2),
-                    new Point(x, ymax + margin / 2)));
-            }
-
-            Path xaxis_path = new Path();
-            xaxis_path.StrokeThickness = 1;
-            xaxis_path.Stroke = Brushes.Black;
-            xaxis_path.Data = xaxis_geom;
-
-            pltCanvas.Children.Add(xaxis_path);
-
-            // Make the Y ayis.
-            GeometryGroup yaxis_geom = new GeometryGroup();
-            yaxis_geom.Children.Add(new LineGeometry(
-                new Point(xmin, 0), new Point(xmin, pltCanvas.Height)));
-            for (double y = step; y <= pltCanvas.Height - step; y += step)
-            {
-                yaxis_geom.Children.Add(new LineGeometry(
-                    new Point(xmin - margin / 2, y),
-                    new Point(xmin + margin / 2, y)));
-            }
-
-            Path yaxis_path = new Path();
-            yaxis_path.StrokeThickness = 1;
-            yaxis_path.Stroke = Brushes.Black;
-            yaxis_path.Data = yaxis_geom;
-
-            pltCanvas.Children.Add(yaxis_path);
         }
 
         private void zero_Click(object sender, RoutedEventArgs e)
@@ -97,7 +53,7 @@ namespace Calculator
         {
             try
             {
-                mainTextBox.Text = ep.ExecuteStringEquation(inputText).ToString();
+                mainTextBox.Text = ep.ExecuteStringEquation(mainTextBox.Text).ToString();
             } catch (ArithmeticException ex)
             {
                 MessageBox.Show("Cannot divide by 0 (zero)", "Division by zero",MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -247,10 +203,7 @@ namespace Calculator
             }
         }
 
-        private void mainTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
+        
 
         /**
          * Plots the function given by y = f(x)
@@ -264,27 +217,36 @@ namespace Calculator
             for (int i = 0; i < 3; i++)
                 Double.TryParse(rangeSplit[i], out range[i]);
 
-            List<double> domain = new List<double>();
+            List<Point> points = new List<Point>();
+
+            double w = pltCanvas.ActualWidth;
+            double h = pltCanvas.ActualHeight;
 
             double deltaX = canvasGrid.ActualWidth / ((range[2] - range[0]) / range[1]);
-
             string expr = FunctionPlotter.ReturnExpression(mainTextBox.Text);
 
-            Console.WriteLine(expr);
-            Console.WriteLine(deltaX + " " + canvasGrid.ActualWidth);
-
-            double y;
-            for (double x = 0; x <= canvasGrid.ActualWidth; x += deltaX)
+            double x, y, xMax, yMax, xMin, yMin;
+            for(x = range[0]; x <= range[2]; x += range[1])
             {
-                y = canvasGrid.ActualHeight - ep.ExecuteStringEquation(expr.Replace("x", (range[0] + x).ToString()));
-                domain.Add(y);
+                y = ep.ExecuteStringEquation(expr.Replace("x", x.ToString()));
+                points.Add(new Point(x, y));
             }
 
-            double maxVal = domain.Max();
-            for (double x = 0; x <= canvasGrid.ActualWidth; x += deltaX)
+            xMax = points.Max(p => p.X);
+            yMax = points.Max(p => p.Y);
+            xMin = points.Min(p => p.X);
+            yMin = points.Min(p => p.X);
+
+            Console.WriteLine("HOPHOP");
+
+            // re-map numbers from one coordinate system to another
+            foreach(Point p in points)
             {
-                AddPoint(x, (canvasGrid.ActualHeight - ep.ExecuteStringEquation(expr.Replace("x", (range[0] + x).ToString()))) / maxVal);
+                x = p.X.Map(xMin, xMax, 0, w);
+                y = p.Y.Map(yMin, yMax, h, 0);
+                AddPoint(x, y);
             }
+
         }
 
         private void clrPlt_Click(object sender, RoutedEventArgs e)
@@ -292,11 +254,15 @@ namespace Calculator
             pltCanvas.Children.Clear();
         }
 
+        /**
+         * Clears all text input fields
+         */
         private void ClrText()
         {
             inputText = "";
             mainTextBox.Text = inputText;
         }
+
 
         /**
         * Function that encapsulates adding a single point on the canvas. Used for plotting
@@ -332,8 +298,5 @@ namespace Calculator
 
             pltCanvas.Children.Add(line);
         }
-
-
-
     }
 }
