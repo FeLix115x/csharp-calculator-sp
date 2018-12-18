@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{AD192727-4EF5-4B2D-96B0-94D7DFA72F9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonteCarloPI", "..\ThreadExamples\MonteCarloPI\MonteCarloPI.csproj", "{689784B6-13BE-47BB-B472-0132056F1B43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD192727-4EF5-4B2D-96B0-94D7DFA72F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192727-4EF5-4B2D-96B0-94D7DFA72F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD192727-4EF5-4B2D-96B0-94D7DFA72F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD192727-4EF5-4B2D-96B0-94D7DFA72F9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689784B6-13BE-47BB-B472-0132056F1B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689784B6-13BE-47BB-B472-0132056F1B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689784B6-13BE-47BB-B472-0132056F1B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689784B6-13BE-47BB-B472-0132056F1B43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
