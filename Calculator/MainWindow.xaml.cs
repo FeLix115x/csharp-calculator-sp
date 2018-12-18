@@ -31,6 +31,76 @@ namespace Calculator
             ep = new ExpressionParser();
         }
 
+        #region ScaleValue Depdency Property
+        public static readonly DependencyProperty ScaleValueProperty = DependencyProperty.Register("ScaleValue", typeof(double), typeof(MainWindow), new UIPropertyMetadata(1.0, new PropertyChangedCallback(OnScaleValueChanged), new CoerceValueCallback(OnCoerceScaleValue)));
+
+
+        private static object OnCoerceScaleValue(DependencyObject o, object value)
+        {
+            MainWindow mainWindow = o as MainWindow;
+            if (mainWindow != null)
+                return mainWindow.OnCoerceScaleValue((double)value);
+            else
+                return value;
+        }
+
+
+        private static void OnScaleValueChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            MainWindow mainWindow = o as MainWindow;
+            if (mainWindow != null)
+                mainWindow.OnScaleValueChanged((double)e.OldValue, (double)e.NewValue);
+        }
+
+        protected virtual void OnScaleValueChanged(double oldValue, double newValue)
+        {
+
+        }
+
+        protected virtual double OnCoerceScaleValue(double value)
+        {
+            if (double.IsNaN(value))
+                return 1.0f;
+
+            value = Math.Max(0.1, value);
+            return value;
+
+        }
+
+
+
+        public double ScaleValue
+        {
+            get
+            {
+                return (double)GetValue(ScaleValueProperty);
+            }
+            set
+            {
+                SetValue(ScaleValueProperty, value);
+            }
+        }
+        #endregion
+
+
+        private void MainGrid_SizeChanged(object sender, EventArgs e)
+        {
+            CalculateScale();
+        }
+
+
+
+        private void CalculateScale()
+        {
+            double yScale = ActualHeight / 354f; // galvena loga izmers
+            double xScale = ActualWidth / 525;
+            double value = Math.Min(xScale, yScale);
+            ScaleValue = (double)OnCoerceScaleValue(mainWindow, value);
+        }
+
+
+        ///</scaling>
+
         private void zero_Click(object sender, RoutedEventArgs e)
         {
             mainTextBox.Text += "0";
@@ -63,7 +133,6 @@ namespace Calculator
                 MessageBox.Show("Parenthese do not match", "Invalid expression", MessageBoxButton.OK, MessageBoxImage.Warning);
                 ClrText();
             }
-
         }
 
         private void subtract_Click(object sender, RoutedEventArgs e)
@@ -178,7 +247,6 @@ namespace Calculator
         }
 
         
-
         /**
          * Plots the function given by y = f(x)
          * 
@@ -186,6 +254,8 @@ namespace Calculator
          */
         private void pltBtn_Click(object sender, RoutedEventArgs e)
         {
+            
+
             string[] rangeSplit = rangeInput.Text.Split(':');
             double[] range = new double[3];
             for (int i = 0; i < 3; i++)
@@ -197,21 +267,25 @@ namespace Calculator
                 {
                     MessageBox.Show("Please enter range in a valid format ([X_0]:[dX]:[X_n])", "Invalid range", MessageBoxButton.OK, MessageBoxImage.Warning);
                     ClrText();
+                    return;
                 }
             }
                 
 
             List<Point> points = new List<Point>();
 
-            double w = pltCanvas.ActualWidth;
-            double h = pltCanvas.ActualHeight;
+            double w = pltCanvas.ActualWidth - 10;
+            double h = pltCanvas.ActualHeight - 10;
 
-            double deltaX = canvasGrid.ActualWidth / ((range[2] - range[0]) / range[1]);
+            const double epsilon = 0.00001;
+
+            double deltaX = range[1];
             string expr = FunctionPlotter.ReturnExpression(mainTextBox.Text);
 
             double x, y, xMax, yMax, xMin, yMin;
-            for(x = range[0]; x <= range[2]; x += range[1])
+            for(x = range[0]; x <= range[2]; x += deltaX)
             {
+                if (Math.Abs(x) < epsilon) x = 0;
                 y = ep.ExecuteStringEquation(expr.Replace("x", x.ToString()));
                 points.Add(new Point(x, y));
             }
@@ -219,18 +293,36 @@ namespace Calculator
             xMax = points.Max(p => p.X);
             yMax = points.Max(p => p.Y);
             xMin = points.Min(p => p.X);
-            yMin = points.Min(p => p.X);
+            yMin = points.Min(p => p.Y);
 
-            Console.WriteLine("HOPHOP");
+            ShowNumberAsText(xMin, 10, (h-10)/2);
+            ShowNumberAsText(xMax, w, (h - 10) / 2);
+            ShowNumberAsText(yMin, (w - 10) / 2, h);
+            ShowNumberAsText(yMax, (w - 10) / 2, 10);
 
             // re-map numbers from one coordinate system to another
-            foreach(Point p in points)
+            foreach (Point p in points)
             {
-                x = p.X.Map(xMin, xMax, 0, w);
-                y = p.Y.Map(yMin, yMax, h, 0);
+                x = p.X.Map(xMin, xMax, 10, w);
+                y = p.Y.Map(yMin, yMax, h, 10);
                 AddPoint(x, y);
             }
+        }
 
+
+        private void DisplayRange(double xMin, double yMin, double xMax, double yMax)
+        {
+            
+        }
+
+        private void ShowNumberAsText(double n, double x, double y)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = string.Format("{0:0.##}", n);
+            textBlock.Foreground = new SolidColorBrush(Colors.Black);
+            Canvas.SetLeft(textBlock, x);
+            Canvas.SetTop(textBlock, y);
+            pltCanvas.Children.Add(textBlock);
         }
 
         private void clrPlt_Click(object sender, RoutedEventArgs e)
@@ -257,15 +349,15 @@ namespace Calculator
 
             var ellipse = new Ellipse()
             {
-                Width = 6,
-                Height = 6,
+                Width = 3,
+                Height = 3,
                 Stroke = new SolidColorBrush(Colors.Black),
                 StrokeThickness = 2,
                 Fill = new SolidColorBrush(Colors.Black)
             };
 
-            Canvas.SetLeft(ellipse, p.X - 3);
-            Canvas.SetTop(ellipse, p.Y - 3);
+            Canvas.SetLeft(ellipse, p.X - 1.5);
+            Canvas.SetTop(ellipse, p.Y - 1.5);
             pltCanvas.Children.Add(ellipse);
         }
 
