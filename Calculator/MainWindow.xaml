@@ -56,13 +56,13 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="0*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="pltBtn" Content="Plot" Margin="3,22,168,197" RenderTransformOrigin="-1.03,2.75" Click="pltBtn_Click"/>
-                <Button x:Name="clrPlt" Content="Clear" Margin="62,22,0,197" RenderTransformOrigin="-1.03,2.75" Click="clrPlt_Click" HorizontalAlignment="Left" Width="55"/>
-                <TextBox x:Name="rangeInput"  Margin="122,22,0,197" RenderTransformOrigin="-1.03,2.75" HorizontalAlignment="Left" Width="92"/>
+                <Button x:Name="pltBtn" Content="Plot" Margin="3,22,155,197" RenderTransformOrigin="-1.03,2.75" Click="pltBtn_Click"/>
+                <Button x:Name="clrPlt" Content="Clear" Margin="74,22,0,197" RenderTransformOrigin="-1.03,2.75" Click="clrPlt_Click" HorizontalAlignment="Left" Width="62"/>
+
+                <TextBox x:Name="rangeInput"  Margin="141,22,0,197" RenderTransformOrigin="-1.03,2.75" HorizontalAlignment="Left" Width="73"/>
                 <Border Margin="3,49,0,0" >
                     <Canvas x:Name="pltCanvas" SnapsToDevicePixels="False" Margin="0,10,10,10"/>
                 </Border>
-
             </Grid>
         </Grid>
     </Grid>

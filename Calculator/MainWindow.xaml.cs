@@ -102,6 +102,7 @@ namespace Calculator
 
         ///</scaling>
 
+        #region UIControls
         private void zero_Click(object sender, RoutedEventArgs e)
         {
             mainTextBox.Text += "0";
@@ -201,8 +202,6 @@ namespace Calculator
             mainTextBox.Text += "/";
         }
 
-        
-
         private void rightP_Click(object sender, RoutedEventArgs e)
         {
             mainTextBox.Text += ")";
@@ -232,7 +231,8 @@ namespace Calculator
         {
             mainTextBox.Text += "^(1/2)";
         }
-        
+        #endregion UIControls
+
         /**
          * Clears one symbol (backspace)
          */
@@ -277,7 +277,7 @@ namespace Calculator
 
             Thread calcThread;      // used to plot the funciton as a separate thread, if no input errors so far
             List<Point> points = new List<Point>();
-            ClrPlotCanvas();    // clears canvas to plot another function
+            // ClrPlotCanvas();    // clears canvas to plot another function
 
             double w = pltCanvas.ActualWidth - 10;
             double h = pltCanvas.ActualHeight - 10;
@@ -323,7 +323,9 @@ namespace Calculator
             calcThread.Start();
         }
 
-
+        /**
+         * Used to show range on the plot
+         */
         private void ShowNumberAsText(double n, double x, double y)
         {
             TextBlock textBlock = new TextBlock();
@@ -348,6 +350,9 @@ namespace Calculator
             rangeInput.Text = "";
         }
 
+        /**
+         * Removes all children from canvas
+         */
         private void ClrPlotCanvas()
         {
             pltCanvas.Children.Clear();
