@@ -178,9 +178,6 @@ namespace Calculator
         {
             return s.Count == 0;
         }
-
-
-
     }
 }
 
