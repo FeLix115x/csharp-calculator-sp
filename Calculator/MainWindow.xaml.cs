@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ExtensionMethods;
+using System.Threading;
 
 namespace Calculator
 {
@@ -101,6 +102,7 @@ namespace Calculator
 
         ///</scaling>
 
+        #region UIControls
         private void zero_Click(object sender, RoutedEventArgs e)
         {
             mainTextBox.Text += "0";
@@ -200,8 +202,6 @@ namespace Calculator
             mainTextBox.Text += "/";
         }
 
-        
-
         private void rightP_Click(object sender, RoutedEventArgs e)
         {
             mainTextBox.Text += ")";
@@ -231,7 +231,8 @@ namespace Calculator
         {
             mainTextBox.Text += "^(1/2)";
         }
-        
+        #endregion UIControls
+
         /**
          * Clears one symbol (backspace)
          */
@@ -248,14 +249,10 @@ namespace Calculator
 
         
         /**
-         * Plots the function given by y = f(x)
-         * 
-         * TODO FIX
+         * Plots the function given by y = f(x) in a separate thread
          */
         private void pltBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-
             string[] rangeSplit = rangeInput.Text.Split(':');
             double[] range = new double[3];
             for (int i = 0; i < 3; i++)
@@ -270,9 +267,17 @@ namespace Calculator
                     return;
                 }
             }
-                
 
+            if(range[0] > range[2] || Math.Abs(range[1]) > Math.Abs(range[2] - range[1]) / 2)
+            {
+                MessageBox.Show("Please specify the range correctly", "Invalid range", MessageBoxButton.OK, MessageBoxImage.Warning);
+                ClrText();
+                return;
+            }
+
+            Thread calcThread;      // used to plot the funciton as a separate thread, if no input errors so far
             List<Point> points = new List<Point>();
+            // ClrPlotCanvas();    // clears canvas to plot another function
 
             double w = pltCanvas.ActualWidth - 10;
             double h = pltCanvas.ActualHeight - 10;
@@ -281,40 +286,46 @@ namespace Calculator
 
             double deltaX = range[1];
             string expr = FunctionPlotter.ReturnExpression(mainTextBox.Text);
-
             double x, y, xMax, yMax, xMin, yMin;
-            for(x = range[0]; x <= range[2]; x += deltaX)
+
+            calcThread = new Thread(delegate()
             {
-                if (Math.Abs(x) < epsilon) x = 0;
-                y = ep.ExecuteStringEquation(expr.Replace("x", x.ToString()));
-                points.Add(new Point(x, y));
-            }
+                for (x = range[0]; x <= range[2]; x += deltaX)
+                {
+                    if (Math.Abs(x) < epsilon) x = 0;
+                    y = ep.ExecuteStringEquation(expr.Replace("x", x.ToString()));
+                    points.Add(new Point(x, y));
+                }
 
-            xMax = points.Max(p => p.X);
-            yMax = points.Max(p => p.Y);
-            xMin = points.Min(p => p.X);
-            yMin = points.Min(p => p.Y);
+                xMax = points.Max(p => p.X);
+                yMax = points.Max(p => p.Y);
+                xMin = points.Min(p => p.X);
+                yMin = points.Min(p => p.Y);
 
-            ShowNumberAsText(xMin, 10, (h-10)/2);
-            ShowNumberAsText(xMax, w, (h - 10) / 2);
-            ShowNumberAsText(yMin, (w - 10) / 2, h);
-            ShowNumberAsText(yMax, (w - 10) / 2, 10);
+                //  invoke UI change - plot the function
+                Dispatcher.Invoke(() =>
+                {
+                    ShowNumberAsText(xMin, 10, (h - 10) / 2);
+                    ShowNumberAsText(xMax, w, (h - 10) / 2);
+                    ShowNumberAsText(yMin, (w - 10) / 2, h);
+                    ShowNumberAsText(yMax, (w - 10) / 2, 10);
 
-            // re-map numbers from one coordinate system to another
-            foreach (Point p in points)
-            {
-                x = p.X.Map(xMin, xMax, 10, w);
-                y = p.Y.Map(yMin, yMax, h, 10);
-                AddPoint(x, y);
-            }
+                    // re-map numbers from one coordinate system to another
+                    foreach (Point p in points)
+                    {
+                        x = p.X.Map(xMin, xMax, 10, w);
+                        y = p.Y.Map(yMin, yMax, h, 10);
+                        AddPoint(x, y);
+                    }
+                });
+            });
+            calcThread.SetApartmentState(ApartmentState.STA);
+            calcThread.Start();
         }
 
-
-        private void DisplayRange(double xMin, double yMin, double xMax, double yMax)
-        {
-            
-        }
-
+        /**
+         * Used to show range on the plot
+         */
         private void ShowNumberAsText(double n, double x, double y)
         {
             TextBlock textBlock = new TextBlock();
@@ -327,7 +338,7 @@ namespace Calculator
 
         private void clrPlt_Click(object sender, RoutedEventArgs e)
         {
-            pltCanvas.Children.Clear();
+            ClrPlotCanvas();
         }
 
         /**
@@ -337,6 +348,14 @@ namespace Calculator
         {
             mainTextBox.Text = "";
             rangeInput.Text = "";
+        }
+
+        /**
+         * Removes all children from canvas
+         */
+        private void ClrPlotCanvas()
+        {
+            pltCanvas.Children.Clear();
         }
 
 
@@ -361,6 +380,9 @@ namespace Calculator
             pltCanvas.Children.Add(ellipse);
         }
 
+        /**
+         * Unused
+         */
         private void DrawLine(double x1, double y1, double x2, double y2)
         {
             Line line = new Line();
